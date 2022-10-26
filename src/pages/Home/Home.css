@@ -54,3 +54,10 @@
     color: #b4b8bb;
     text-decoration: none;
   }
+
+  .error{
+    margin-top: 1rem;
+    color: rgb(240, 94, 53);
+    font-weight: 700;
+
+  }

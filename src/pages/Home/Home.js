@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 import {
  signInWithEmailAndPassword
 } from 'firebase/auth'
@@ -10,19 +10,22 @@ const Home = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const navigate = useNavigate()
 
   async function handleLogin(e) {
     e.preventDefault()
 
     if (email !== '' || password !== '') {
-      alert('LOGADO!')
-
+     
       await signInWithEmailAndPassword(auth, email, password)
-        .then(
+        .then(()=>{
 
-      )
+          navigate('/admin', {replace: true})
+
+        })
         .catch(
-          console.log('ERRO NO LOGIN!')
+          setError('Email e(ou) senha inválidos!')
         )
     }else{
       alert('Preencha todos os campos!')
@@ -44,7 +47,7 @@ const Home = () => {
           onChange={e => setEmail(e.target.value)}
         />
         <input
-          autoComplete={false}
+         
           type="password"
           placeholder="Digite sua senha."
           value={password}
@@ -56,6 +59,7 @@ const Home = () => {
       <Link className="button-link" to="/register">
         Não possui uma conta? Cadastre-se.
       </Link>
+      {error!=='' && (<p className="error">{error}</p>)}
     </div>
   )
 }
