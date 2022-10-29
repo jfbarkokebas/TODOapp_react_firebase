@@ -22,6 +22,7 @@ const Home = () => {
         .then(()=>{
 
           navigate('/admin', {replace: true})
+          setError('')
 
         })
         .catch(
